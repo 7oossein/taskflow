@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription | TaskFlow</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="auth-page">
+
+    <main class="auth-container">
+
+        <section class="auth-brand">
+            <div class="brand-logo">T</div>
+            <h1>TaskFlow</h1>
+
+            <div class="brand-content">
+                <span class="brand-label">COMMENCEZ MAINTENANT</span>
+
+                <h2>Une meilleure organisation commence ici.</h2>
+
+                <p>
+                    Créez votre compte et profitez d'un espace
+                    simple pour organiser toutes vos activités.
+                </p>
+            </div>
+
+            <div class="brand-decoration decoration-one"></div>
+            <div class="brand-decoration decoration-two"></div>
+
+            <div class="brand-bottom">
+                © 2026 TaskFlow. Tous droits réservés.
+            </div>
+        </section>
+
+        <section class="auth-content">
+
+            <div class="auth-form-wrapper">
+
+                <div class="auth-heading">
+                    <span class="auth-eyebrow">REJOIGNEZ TASKFLOW</span>
+                    <h2>Créer un compte</h2>
+                    <p>Renseignez vos informations pour commencer.</p>
+                </div>
+
+                <form id="form-inscription">
+
+                    <div class="form-group">
+                        <label for="nom">Nom complet</label>
+                        <input
+                            type="text"
+                            id="nom"
+                            placeholder="Votre nom complet"
+                            autocomplete="name"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Adresse email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="nom@exemple.com"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="motDePasse">Mot de passe</label>
+                        <input
+                            type="password"
+                            id="motDePasse"
+                            placeholder="Créez un mot de passe"
+                            autocomplete="new-password"
+                            required
+                        >
+                    </div>
+
+                    <p id="message" role="alert"></p>
+
+                    <button type="submit" class="auth-button">
+                        Créer mon compte
+                        <span>→</span>
+                    </button>
+
+                </form>
+
+                <div class="auth-switch">
+                    Vous avez déjà un compte ?
+                    <a href="login.html">Se connecter</a>
+                </div>
+
+                <div class="auth-security">
+                    <span>◆</span>
+                    Vos informations sont protégées
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script type="module" src="js/signup.js"></script>
+
+</body>
+</html>

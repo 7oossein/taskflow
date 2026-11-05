@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#111827">
+    <title>Dashboard | TaskFlow</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="page-taches">
+
+    <!-- BARRE DE NAVIGATION -->
+    <header class="topbar">
+        <div class="topbar-content">
+
+            <div class="brand">
+                <div class="brand-icon">✓</div>
+                <span>TaskFlow</span>
+            </div>
+
+            <div class="topbar-right">
+                <span class="user-status">
+                    <span class="status-dot"></span>
+                    Espace personnel
+                </span>
+
+                <button id="btn-deconnexion" class="btn-logout">
+                    <span>↪</span>
+                    Déconnexion
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- CONTENU PRINCIPAL -->
+    <main class="dashboard">
+
+        <!-- INTRODUCTION -->
+        <section class="welcome">
+            <div>
+                <span class="eyebrow">TABLEAU DE BORD</span>
+                <h1>Mes tâches</h1>
+                <p>Organisez votre travail, une tâche à la fois.</p>
+            </div>
+
+            <div class="welcome-decoration">✦</div>
+        </section>
+
+        <!-- MESSAGE -->
+        <p id="message" role="alert" aria-live="polite"></p>
+
+        <!-- FORMULAIRE D'AJOUT -->
+        <section class="add-card">
+
+            <div class="add-heading">
+                <div class="add-icon">+</div>
+                <div>
+                    <h2>Nouvelle tâche</h2>
+                    <p>Qu'avez-vous prévu de faire ?</p>
+                </div>
+            </div>
+
+            <form id="form-tache">
+                <input
+                    type="text"
+                    id="texte-tache"
+                    placeholder="Ex : Réviser JavaScript..."
+                    aria-label="Nouvelle tâche"
+                    required
+                >
+
+                <button type="submit" class="btn-primary">
+                    <span>+</span>
+                    Ajouter
+                </button>
+            </form>
+
+        </section>
+
+        <!-- LISTE DES TÂCHES -->
+        <section class="tasks-section">
+
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">VOTRE ORGANISATION</span>
+                    <h2>Ma liste de tâches</h2>
+                </div>
+
+                <div class="tasks-counter" id="compteur">
+                    Tâches restantes : 0
+                </div>
+            </div>
+
+            <!-- FILTRES -->
+            <div class="filters-container">
+                <div class="filtres">
+
+                    <button
+                        type="button"
+                        class="filtre actif"
+                        data-filtre="toutes"
+                    >
+                        Toutes
+                    </button>
+
+                    <button
+                        type="button"
+                        class="filtre"
+                        data-filtre="en-cours"
+                    >
+                        En cours
+                    </button>
+
+                    <button
+                        type="button"
+                        class="filtre"
+                        data-filtre="terminees"
+                    >
+                        Terminées
+                    </button>
+
+                </div>
+            </div>
+
+            <!-- TÂCHES GÉNÉRÉES PAR JAVASCRIPT -->
+            <ul id="liste-taches"></ul>
+
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="dashboard-footer">
+            <span>TaskFlow</span>
+            <span>Organisez vos idées. Accomplissez vos objectifs.</span>
+        </footer>
+
+    </main>
+
+    <script type="module" src="js/app.js"></script>
+
+</body>
+</html>
