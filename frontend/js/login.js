@@ -3,7 +3,7 @@ const emailInput = document.querySelector("#email");
 const motDePasseInput = document.querySelector("#motDePasse");
 const message = document.querySelector("#message");
 
-const API_URL = "http://localhost:3000";
+const API_URL = "https://taskflow-5hsg.onrender.com";
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
