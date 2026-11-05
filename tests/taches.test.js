@@ -1,4 +1,3 @@
-
 import request from "supertest";
 import app, { gestionnaireErreurs } from "../app.js";
 import pool from "../db.js";
@@ -10,16 +9,16 @@ describe("API des tâches", () => {
     let utilisateurId;
 
     const api = {
-        get: (url) => request(app).get(url)
-            .set("Authorization", `Bearer ${token}`),
-        post: (url) => request(app).post(url)
-            .set("Authorization", `Bearer ${token}`),
-        put: (url) => request(app).put(url)
-            .set("Authorization", `Bearer ${token}`),
-        patch: (url) => request(app).patch(url)
-            .set("Authorization", `Bearer ${token}`),
-        delete: (url) => request(app).delete(url)
-            .set("Authorization", `Bearer ${token}`)
+        get: (url) =>
+            request(app).get(url).set("Authorization", `Bearer ${token}`),
+        post: (url) =>
+            request(app).post(url).set("Authorization", `Bearer ${token}`),
+        put: (url) =>
+            request(app).put(url).set("Authorization", `Bearer ${token}`),
+        patch: (url) =>
+            request(app).patch(url).set("Authorization", `Bearer ${token}`),
+        delete: (url) =>
+            request(app).delete(url).set("Authorization", `Bearer ${token}`),
     };
 
     beforeEach(async () => {
@@ -29,16 +28,14 @@ describe("API des tâches", () => {
             `INSERT INTO utilisateurs (nom, email, mot_de_passe)
              VALUES ($1, $2, $3)
              RETURNING id`,
-            ["Test", "test@example.com", "mot-de-passe-test"]
+            ["Test", "test@example.com", "mot-de-passe-test"],
         );
 
         utilisateurId = resultat.rows[0].id;
 
-        token = jwt.sign(
-            { id: utilisateurId },
-            process.env.JWT_SECRET,
-            { expiresIn: "1h" }
-        );
+        token = jwt.sign({ id: utilisateurId }, process.env.JWT_SECRET, {
+            expiresIn: "1h",
+        });
     });
 
     afterAll(async () => {
@@ -51,7 +48,7 @@ describe("API des tâches", () => {
         const reponse = await request(app).get("/taches");
 
         expect(reponse.status).toBe(401);
-        expect(reponse.body.erreur).toBe("Token manquant.");
+        expect(reponse.body.message).toBe("Token manquant.");
     });
 
     test("GET /taches doit refuser un token invalide", async () => {
@@ -60,14 +57,14 @@ describe("API des tâches", () => {
             .set("Authorization", "Bearer faux-token");
 
         expect(reponse.status).toBe(401);
-        expect(reponse.body.erreur).toBe("Token invalide ou expiré.");
+        expect(reponse.body.message).toBe("Token invalide ou expiré.");
     });
 
     test("GET /taches doit refuser un token expiré", async () => {
         const tokenExpire = jwt.sign(
             { id: utilisateurId },
             process.env.JWT_SECRET,
-            { expiresIn: "-1s" }
+            { expiresIn: "-1s" },
         );
 
         const reponse = await request(app)
@@ -90,11 +87,10 @@ describe("API des tâches", () => {
     });
 
     test("POST /taches doit refuser un texte vide", async () => {
-        const reponse = await api.post("/taches")
-            .send({ texte: "   " });
+        const reponse = await api.post("/taches").send({ texte: "   " });
 
         expect(reponse.status).toBe(400);
-        expect(reponse.body).toHaveProperty("erreur");
+        expect(reponse.body).toHaveProperty("message");
     });
 
     test("POST /taches doit refuser une tâche en doublon", async () => {
@@ -110,8 +106,7 @@ describe("API des tâches", () => {
     // LECTURE
 
     test("GET /taches doit retourner les tâches de l'utilisateur", async () => {
-        await api.post("/taches")
-            .send({ texte: "Tâche de lecture" });
+        await api.post("/taches").send({ texte: "Tâche de lecture" });
 
         const reponse = await api.get("/taches");
 
@@ -121,7 +116,8 @@ describe("API des tâches", () => {
     });
 
     test("GET /taches/:id doit retourner une tâche", async () => {
-        const creation = await api.post("/taches")
+        const creation = await api
+            .post("/taches")
             .send({ texte: "Tâche à rechercher" });
 
         const id = creation.body.tache.id;
@@ -147,12 +143,14 @@ describe("API des tâches", () => {
     // MODIFICATION
 
     test("PUT /taches/:id doit modifier une tâche", async () => {
-        const creation = await api.post("/taches")
+        const creation = await api
+            .post("/taches")
             .send({ texte: "Ancienne tâche" });
 
         const id = creation.body.tache.id;
 
-        const reponse = await api.put(`/taches/${id}`)
+        const reponse = await api
+            .put(`/taches/${id}`)
             .send({ texte: "Nouvelle tâche" });
 
         expect(reponse.status).toBe(200);
@@ -160,26 +158,29 @@ describe("API des tâches", () => {
     });
 
     test("PUT /taches/:id doit refuser un texte vide", async () => {
-        const creation = await api.post("/taches")
+        const creation = await api
+            .post("/taches")
             .send({ texte: "Ancienne tâche" });
 
-        const reponse = await api.put(
-            `/taches/${creation.body.tache.id}`
-        ).send({ texte: "   " });
+        const reponse = await api
+            .put(`/taches/${creation.body.tache.id}`)
+            .send({ texte: "   " });
 
         expect(reponse.status).toBe(400);
-        expect(reponse.body.erreur).toBe("Le texte est obligatoire.");
+        expect(reponse.body.message).toBe("Le texte est obligatoire.");
     });
 
     test("PUT /taches/:id doit refuser un identifiant invalide", async () => {
-        const reponse = await api.put("/taches/abc")
+        const reponse = await api
+            .put("/taches/abc")
             .send({ texte: "Nouvelle tâche" });
 
         expect(reponse.status).toBe(400);
     });
 
     test("PUT /taches/:id doit retourner 404 si la tâche n'existe pas", async () => {
-        const reponse = await api.put("/taches/999999")
+        const reponse = await api
+            .put("/taches/999999")
             .send({ texte: "Nouvelle tâche" });
 
         expect(reponse.status).toBe(404);
@@ -188,7 +189,8 @@ describe("API des tâches", () => {
     // SUPPRESSION
 
     test("DELETE /taches/:id doit supprimer une tâche", async () => {
-        const creation = await api.post("/taches")
+        const creation = await api
+            .post("/taches")
             .send({ texte: "Tâche à supprimer" });
 
         const id = creation.body.tache.id;
@@ -217,7 +219,8 @@ describe("API des tâches", () => {
     // TERMINER UNE TÂCHE
 
     test("PATCH /taches/:id/terminer doit terminer une tâche", async () => {
-        const creation = await api.post("/taches")
+        const creation = await api
+            .post("/taches")
             .send({ texte: "Tâche à terminer" });
 
         const id = creation.body.tache.id;
@@ -229,7 +232,8 @@ describe("API des tâches", () => {
     });
 
     test("PATCH /taches/:id/terminer doit détecter une tâche déjà terminée", async () => {
-        const creation = await api.post("/taches")
+        const creation = await api
+            .post("/taches")
             .send({ texte: "Tâche déjà terminée" });
 
         const id = creation.body.tache.id;
@@ -256,7 +260,8 @@ describe("API des tâches", () => {
     // RÉACTIVER UNE TÂCHE
 
     test("PATCH /taches/:id/reactiver doit réactiver une tâche", async () => {
-        const creation = await api.post("/taches")
+        const creation = await api
+            .post("/taches")
             .send({ texte: "Tâche à réactiver" });
 
         const id = creation.body.tache.id;
@@ -270,7 +275,8 @@ describe("API des tâches", () => {
     });
 
     test("PATCH /taches/:id/reactiver doit détecter une tâche déjà active", async () => {
-        const creation = await api.post("/taches")
+        const creation = await api
+            .post("/taches")
             .send({ texte: "Tâche déjà active" });
 
         const id = creation.body.tache.id;
@@ -295,7 +301,8 @@ describe("API des tâches", () => {
     // ISOLATION ENTRE UTILISATEURS
 
     test("Un utilisateur ne doit pas voir les tâches d'un autre", async () => {
-        const creation = await api.post("/taches")
+        const creation = await api
+            .post("/taches")
             .send({ texte: "Tâche privée" });
 
         const id = creation.body.tache.id;
@@ -304,13 +311,13 @@ describe("API des tâches", () => {
             `INSERT INTO utilisateurs (nom, email, mot_de_passe)
              VALUES ($1, $2, $3)
              RETURNING id`,
-            ["Autre", "autre@example.com", "mot-de-passe-test"]
+            ["Autre", "autre@example.com", "mot-de-passe-test"],
         );
 
         const autreToken = jwt.sign(
             { id: autreUtilisateur.rows[0].id },
             process.env.JWT_SECRET,
-            { expiresIn: "1h" }
+            { expiresIn: "1h" },
         );
 
         const reponse = await request(app)
@@ -321,7 +328,8 @@ describe("API des tâches", () => {
     });
 
     test("Un utilisateur ne doit pas modifier les tâches d'un autre", async () => {
-        const creation = await api.post("/taches")
+        const creation = await api
+            .post("/taches")
             .send({ texte: "Tâche privée" });
 
         const id = creation.body.tache.id;
@@ -330,13 +338,13 @@ describe("API des tâches", () => {
             `INSERT INTO utilisateurs (nom, email, mot_de_passe)
              VALUES ($1, $2, $3)
              RETURNING id`,
-            ["Autre", "autre@example.com", "mot-de-passe-test"]
+            ["Autre", "autre@example.com", "mot-de-passe-test"],
         );
 
         const autreToken = jwt.sign(
             { id: autreUtilisateur.rows[0].id },
             process.env.JWT_SECRET,
-            { expiresIn: "1h" }
+            { expiresIn: "1h" },
         );
 
         const reponse = await request(app)
@@ -348,7 +356,8 @@ describe("API des tâches", () => {
     });
 
     test("Un utilisateur ne doit pas supprimer les tâches d'un autre", async () => {
-        const creation = await api.post("/taches")
+        const creation = await api
+            .post("/taches")
             .send({ texte: "Tâche privée" });
 
         const id = creation.body.tache.id;
@@ -357,13 +366,13 @@ describe("API des tâches", () => {
             `INSERT INTO utilisateurs (nom, email, mot_de_passe)
              VALUES ($1, $2, $3)
              RETURNING id`,
-            ["Autre", "autre@example.com", "mot-de-passe-test"]
+            ["Autre", "autre@example.com", "mot-de-passe-test"],
         );
 
         const autreToken = jwt.sign(
             { id: autreUtilisateur.rows[0].id },
             process.env.JWT_SECRET,
-            { expiresIn: "1h" }
+            { expiresIn: "1h" },
         );
 
         const reponse = await request(app)
@@ -380,19 +389,19 @@ describe("API des tâches", () => {
 
         const res = {
             status: jest.fn().mockReturnThis(),
-            json: jest.fn()
+            json: jest.fn(),
         };
 
         const erreur = {
             message: "",
-            statutCode: 500
+            statutCode: 500,
         };
 
         gestionnaireErreurs(erreur, req, res, () => {});
 
         expect(res.status).toHaveBeenCalledWith(500);
         expect(res.json).toHaveBeenCalledWith({
-            erreur: "Erreur interne du serveur."
+            message: "Erreur interne du serveur.",
         });
     });
 });

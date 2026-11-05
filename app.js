@@ -5,7 +5,11 @@ import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./swagger.js";
 import cors from "cors";
 const app = express();
-app.use(cors());
+app.use(
+    cors({
+        origin: process.env.FRONTEND_URL || "http://127.0.0.1:5500",
+    }),
+);
 app.use(express.json());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
@@ -20,12 +24,12 @@ export function gestionnaireErreurs(erreur, req, res, next) {
 
     if (erreur.code === "23505") {
         return res.status(409).json({
-            erreur: "Une tâche avec ce texte existe déjà.",
+            message: "Une tâche avec ce texte existe déjà."
         });
     }
 
     res.status(statut).json({
-        message: erreur.message || "Erreur interne du serveur.",
+        message: erreur.message || "Erreur interne du serveur."
     });
 }
 

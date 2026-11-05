@@ -1,32 +1,30 @@
-
 import "dotenv/config";
 import pg from "pg";
 
 const { Pool } = pg;
 
-const variablesObligatoires = [
-    "DB_USER",
-    "DB_HOST",
-    "DB_PASSWORD",
-    "DB_PORT"
-];
+const estTest = process.env.NODE_ENV === "test";
 
-for (const variable of variablesObligatoires) {
-    if (!process.env[variable]) {
-        throw new Error(`Variable d'environnement manquante : ${variable}`);
+let pool;
+
+if (estTest) {
+    // Base locale réservée aux tests
+    pool = new Pool({
+        user: process.env.DB_USER,
+        host: process.env.DB_HOST,
+        database: "gestion_taches_test",
+        password: process.env.DB_PASSWORD,
+        port: Number(process.env.DB_PORT),
+    });
+} else {
+    // Base PostgreSQL hébergée sur Neon
+    if (!process.env.DATABASE_URL) {
+        throw new Error("DATABASE_URL est manquante.");
     }
+
+    pool = new Pool({
+        connectionString: process.env.DATABASE_URL,
+    });
 }
-
-const nomBase = process.env.NODE_ENV === "test"
-    ? "gestion_taches_test"
-    : process.env.DB_NAME;
-
-const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: nomBase,
-    password: process.env.DB_PASSWORD,
-    port: Number(process.env.DB_PORT)
-});
 
 export default pool;

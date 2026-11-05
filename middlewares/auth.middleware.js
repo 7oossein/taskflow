@@ -7,7 +7,7 @@ export async function verifierToken(req, res, next) {
 
     if (!authorization || !authorization.startsWith("Bearer ")) {
         return res.status(401).json({
-            erreur: "Token manquant."
+            message: "Token manquant."
         });
     }
 
@@ -26,7 +26,7 @@ export async function verifierToken(req, res, next) {
         );
     } catch (erreur) {
         return res.status(401).json({
-            erreur: "Token invalide ou expiré."
+            message: "Token invalide ou expiré."
         });
     }
 
@@ -38,7 +38,7 @@ export async function verifierToken(req, res, next) {
         decoded.id <= 0
     ) {
         return res.status(401).json({
-            erreur: "Token invalide."
+            message: "Token invalide."
         });
     }
 
@@ -48,7 +48,7 @@ export async function verifierToken(req, res, next) {
 
         if (!utilisateur) {
             return res.status(401).json({
-                erreur: "Compte utilisateur inexistant."
+                message: "Compte utilisateur inexistant."
             });
         }
 
