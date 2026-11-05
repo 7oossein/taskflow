@@ -1,4 +1,5 @@
 
+import "dotenv/config";
 import swaggerJsdoc from "swagger-jsdoc";
 
 const options = {
@@ -13,8 +14,8 @@ const options = {
 
         servers: [
             {
-                url: "http://localhost:3000",
-                description: "Serveur local"
+                url: process.env.RENDER_EXTERNAL_URL || "http://localhost:3000",
+                description: "Serveur actuel"
             }
         ],
 
@@ -26,7 +27,6 @@ const options = {
                     bearerFormat: "JWT"
                 }
             }
-
         }
     },
 
