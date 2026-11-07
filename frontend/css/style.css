@@ -590,28 +590,32 @@ body {
         padding: 0;
     }
 
-    .add-card,
+    
     .tasks-section {
         padding: 20px;
     }
 
-    #form-tache {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-    }
-
-    #texte-tache {
-        width: 100%;
-        min-width: 0;
-        height: 50px;
-        box-sizing: border-box;
-    }
     .add-card {
         width: 100%;
         box-sizing: border-box;
     }
-    
+
+    #form-tache {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    #texte-tache {
+        display: block;
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+}
+
     .btn-primary {
         width: 100%;
         min-height: 48px;
