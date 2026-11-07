@@ -515,6 +515,9 @@ body {
     color: var(--danger);
 }
 
+#liste-taches li button + button {
+    margin-left: 10px;
+}
 /* ==========================================
    EDITING MODE
 ========================================== */
