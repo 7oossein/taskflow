@@ -1018,3 +1018,17 @@ body {
         font-size: 26px;
     }
 }
+@media (min-width: 651px) {
+    #form-tache {
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+    }
+
+    #texte-tache {
+        flex: 1 1 auto;
+        width: 0;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+}
