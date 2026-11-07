@@ -593,11 +593,21 @@ body {
     }
 
     #form-tache {
+        display: flex;
         flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+
+    #texte-tache {
+        width: 100%;
+        min-width: 0;
+        height: 50px;
     }
 
     .btn-primary {
-        min-height: 45px;
+        width: 100%;
+        min-height: 48px;
     }
 
     .section-heading {
@@ -606,7 +616,22 @@ body {
     }
 
     #liste-taches li {
-        align-items: flex-start;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto auto;
+        align-items: center;
+        column-gap: 10px;
+        row-gap: 12px;
+    }
+
+    #liste-taches li span {
+        grid-column: 1 / -1;
+        min-width: 0;
+    }
+
+    #liste-taches li button {
+        margin: 0;
+        white-space: nowrap;
+        min-width: 85px;
     }
 
     .dashboard-footer {
