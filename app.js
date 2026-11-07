@@ -4,12 +4,15 @@ import authRouter from "./routes/auth.routes.js";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./swagger.js";
 import cors from "cors";
+
 const app = express();
+
 app.use(
     cors({
         origin: process.env.FRONTEND_URL || "http://127.0.0.1:5500",
     }),
 );
+
 app.use(express.json());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));

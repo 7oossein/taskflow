@@ -4,6 +4,7 @@ const motDePasseInput = document.querySelector("#motDePasse");
 const message = document.querySelector("#message");
 
 const API_URL = "https://taskflow-5hsg.onrender.com";
+
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -33,6 +34,12 @@ form.addEventListener("submit", async (event) => {
 
         // Enregistrer le token
         localStorage.setItem("token", resultat.token);
+
+        // Enregistrer les informations de l'utilisateur
+        localStorage.setItem(
+            "utilisateur",
+            JSON.stringify(resultat.utilisateur),
+        );
 
         // Rediriger vers la liste des tâches
         window.location.href = "index.html";

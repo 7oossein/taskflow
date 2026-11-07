@@ -20,6 +20,14 @@ const liste = document.querySelector("#liste-taches");
 const compteur = document.querySelector("#compteur");
 const boutonsFiltre = document.querySelectorAll(".filtre");
 
+// Afficher le nom de l'utilisateur connecté
+const nomUtilisateur = document.querySelector("#nom-utilisateur");
+
+const utilisateur = JSON.parse(localStorage.getItem("utilisateur"));
+
+if (nomUtilisateur && utilisateur) {
+    nomUtilisateur.textContent = utilisateur.nom;
+}
 // Gestion des messages temporaires
 let temporisateurMessage;
 
@@ -69,9 +77,15 @@ function afficherTache(tache) {
     boutonSupprimer.textContent = "Supprimer";
     boutonSupprimer.dataset.action = "supprimer";
 
+    // Conteneur des boutons
+    const actions = document.createElement("div");
+    actions.className = "task-actions";
+
+    actions.appendChild(boutonModifier);
+    actions.appendChild(boutonSupprimer);
+
     li.appendChild(span);
-    li.appendChild(boutonModifier);
-    li.appendChild(boutonSupprimer);
+    li.appendChild(actions);
 
     if (tache.terminee) {
         li.classList.add("terminee");
@@ -338,6 +352,8 @@ const boutonDeconnexion = document.querySelector("#btn-deconnexion");
 
 boutonDeconnexion.addEventListener("click", () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("utilisateur");
+
     window.location.href = "login.html";
 });
 
