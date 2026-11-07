@@ -1,6 +1,6 @@
 /* ==========================================
    TASKFLOW - VARIABLES
-========================================== */
+   ========================================== */
 
 :root {
     --primary: #6c5ce7;
@@ -34,7 +34,7 @@ body {
 
 /* ==========================================
    DASHBOARD PAGE
-========================================== */
+   ========================================== */
 
 .page-taches {
     min-height: 100vh;
@@ -43,7 +43,7 @@ body {
 
 /* ==========================================
    TOPBAR
-========================================== */
+   ========================================== */
 
 .topbar {
     width: 100%;
@@ -81,7 +81,6 @@ body {
     justify-content: center;
 
     border-radius: 11px;
-
     background: var(--primary);
     color: white;
 
@@ -142,7 +141,7 @@ body {
 
 /* ==========================================
    MAIN DASHBOARD
-========================================== */
+   ========================================== */
 
 .dashboard {
     width: min(1000px, 92%);
@@ -152,7 +151,7 @@ body {
 
 /* ==========================================
    WELCOME SECTION
-========================================== */
+   ========================================== */
 
 .welcome {
     position: relative;
@@ -207,14 +206,16 @@ body {
 
 /* ==========================================
    GLOBAL MESSAGE
-========================================== */
+   ========================================== */
 
 #message {
     display: none;
     padding: 12px 15px;
     margin: 12px 0;
+
     border: 1px solid transparent;
     border-radius: 9px;
+
     font-size: 13px;
     line-height: 1.5;
 }
@@ -235,9 +236,10 @@ body {
 
 /* ==========================================
    ADD TASK CARD
-========================================== */
+   ========================================== */
 
 .add-card {
+    width: 100%;
     padding: 27px;
     margin-bottom: 35px;
 
@@ -287,16 +289,20 @@ body {
 
 #form-tache {
     width: 100%;
+
     display: flex;
+    align-items: stretch;
     gap: 12px;
 }
 
 #texte-tache {
-    flex: 1;
+    flex: 1 1 0;
+    width: 0;
     min-width: 0;
     height: 49px;
 
     padding: 0 15px;
+    box-sizing: border-box;
 
     border: 1px solid var(--border);
     border-radius: 9px;
@@ -323,6 +329,7 @@ body {
 
 .btn-primary {
     min-width: 125px;
+    min-height: 49px;
     padding: 0 20px;
 
     display: flex;
@@ -350,7 +357,7 @@ body {
 
 /* ==========================================
    TASKS SECTION
-========================================== */
+   ========================================== */
 
 .tasks-section {
     padding: 28px;
@@ -393,7 +400,7 @@ body {
 
 /* ==========================================
    FILTERS
-========================================== */
+   ========================================== */
 
 .filters-container {
     margin-bottom: 20px;
@@ -436,7 +443,7 @@ body {
 
 /* ==========================================
    TASK LIST
-========================================== */
+   ========================================== */
 
 #liste-taches {
     display: flex;
@@ -485,7 +492,7 @@ body {
 
 /* ==========================================
    TASK BUTTONS
-========================================== */
+   ========================================== */
 
 #liste-taches li button {
     padding: 8px 12px;
@@ -518,9 +525,10 @@ body {
 #liste-taches li button + button {
     margin-left: 10px;
 }
+
 /* ==========================================
    EDITING MODE
-========================================== */
+   ========================================== */
 
 #liste-taches li input {
     flex: 1;
@@ -537,7 +545,7 @@ body {
 
 /* ==========================================
    FOOTER
-========================================== */
+   ========================================== */
 
 .dashboard-footer {
     padding: 25px 5px;
@@ -556,8 +564,8 @@ body {
 }
 
 /* ==========================================
-   RESPONSIVE
-========================================== */
+   RESPONSIVE - DASHBOARD
+   ========================================== */
 
 @media (max-width: 650px) {
     .topbar-content {
@@ -590,10 +598,11 @@ body {
         padding: 0;
     }
 
-    
     .tasks-section {
         padding: 20px;
     }
+
+    /* Formulaire d'ajout */
 
     .add-card {
         width: 100%;
@@ -614,17 +623,20 @@ body {
         min-width: 0;
         box-sizing: border-box;
     }
-}
 
     .btn-primary {
         width: 100%;
         min-height: 48px;
     }
 
+    /* En-tête de la liste */
+
     .section-heading {
         align-items: flex-start;
         flex-direction: column;
     }
+
+    /* Liste des tâches */
 
     #liste-taches li {
         display: grid;
@@ -639,17 +651,23 @@ body {
         min-width: 0;
     }
 
+    /* Boutons Modifier et Supprimer */
+
     #liste-taches li button {
-        margin: 0 5px;
+        margin: 0;
         white-space: nowrap;
         min-width: 85px;
     }
+
+    /* Pied de page */
 
     .dashboard-footer {
         flex-direction: column;
         text-align: center;
     }
 }
+
+/* Petits écrans */
 
 @media (max-width: 400px) {
     .brand {
@@ -677,14 +695,16 @@ body {
 
 /* ==========================================
    TASKFLOW - LOGIN & SIGNUP
-========================================== */
+   ========================================== */
 
 .auth-page {
     min-height: 100vh;
     padding: 30px 20px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     background:
         radial-gradient(circle at 10% 10%, #e9e5ff, transparent 35%),
         radial-gradient(circle at 90% 90%, #e4e9ff, transparent 35%), #f5f6fc;
@@ -695,11 +715,14 @@ body {
     max-width: 1080px;
     height: 680px;
     min-height: 680px;
+
     display: grid;
     grid-template-columns: 1fr 1fr;
-    background: var(--surface);
+
+    background: var(--white);
     border-radius: 22px;
     overflow: hidden;
+
     box-shadow: var(--shadow);
 }
 
@@ -709,11 +732,16 @@ body {
     position: relative;
     isolation: isolate;
     overflow: hidden;
+
     padding: 55px;
+
     display: flex;
     flex-direction: column;
+
     color: white;
+
     background: linear-gradient(145deg, #211b50, #4938a8 60%, #7662e9);
+
     height: 680px;
     min-height: 680px;
 }
@@ -721,12 +749,16 @@ body {
 .brand-logo {
     width: 52px;
     height: 52px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     border-radius: 15px;
+
     background: white;
     color: #6956df;
+
     font-size: 27px;
     font-weight: 800;
 }
@@ -752,6 +784,7 @@ body {
 .brand-content h2 {
     max-width: 400px;
     margin: 20px 0;
+
     font-size: 38px;
     line-height: 1.25;
     letter-spacing: -1px;
@@ -759,6 +792,7 @@ body {
 
 .brand-content p {
     max-width: 350px;
+
     color: #d9d5f6;
     font-size: 15px;
     line-height: 1.8;
@@ -767,6 +801,7 @@ body {
 .brand-bottom {
     position: relative;
     z-index: 2;
+
     color: #c5c0e9;
     font-size: 11px;
 }
@@ -776,6 +811,7 @@ body {
 .brand-decoration {
     position: absolute;
     z-index: -1;
+
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 50%;
 }
@@ -783,8 +819,10 @@ body {
 .decoration-one {
     width: 320px;
     height: 320px;
+
     right: -140px;
     bottom: -100px;
+
     box-shadow:
         0 0 0 35px rgba(255, 255, 255, 0.035),
         0 0 0 70px rgba(255, 255, 255, 0.025);
@@ -793,6 +831,7 @@ body {
 .decoration-two {
     width: 180px;
     height: 180px;
+
     top: 100px;
     right: -90px;
 }
@@ -802,9 +841,11 @@ body {
 .auth-content {
     height: 680px;
     min-height: 680px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     padding: 40px 55px;
 }
 
@@ -820,6 +861,7 @@ body {
 .auth-eyebrow {
     display: inline-block;
     margin-bottom: 14px;
+
     color: #6956df;
     font-size: 11px;
     font-weight: 800;
@@ -828,6 +870,7 @@ body {
 
 .auth-heading h2 {
     margin-bottom: 10px;
+
     color: #24233a;
     font-size: 30px;
     line-height: 1.3;
@@ -854,6 +897,7 @@ body {
 .auth-page .form-group label {
     display: block;
     margin-bottom: 9px;
+
     color: #39374e;
     font-size: 13px;
     font-weight: 650;
@@ -863,13 +907,18 @@ body {
     display: block;
     width: 100%;
     height: 50px;
+
     padding: 0 15px;
+
     border: 1px solid #e8e7f0;
     border-radius: 9px;
+
     outline: none;
     background: #fcfcfe;
+
     color: #24233a;
     font-size: 14px;
+
     transition: 0.2s;
 }
 
@@ -880,6 +929,7 @@ body {
 .auth-page .form-group input:focus {
     border-color: #6956df;
     background: white;
+
     box-shadow: 0 0 0 3px rgba(105, 86, 223, 0.11);
 }
 
@@ -888,6 +938,7 @@ body {
 .auth-page #message {
     min-height: 18px;
     margin: 5px 0 10px;
+
     color: #df5364;
     font-size: 13px;
 }
@@ -897,18 +948,24 @@ body {
 .auth-button {
     width: 100%;
     min-height: 50px;
+
     margin-top: 10px;
     padding: 12px 18px;
+
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
+
     border: none;
     border-radius: 9px;
+
     background: #6956df;
     color: white;
+
     font-size: 14px;
     font-weight: 700;
+
     cursor: pointer;
     transition: 0.2s;
 }
@@ -916,6 +973,7 @@ body {
 .auth-button:hover {
     background: #5140bd;
     transform: translateY(-2px);
+
     box-shadow: 0 8px 20px rgba(105, 86, 223, 0.22);
 }
 
@@ -923,13 +981,16 @@ body {
 
 .auth-switch {
     margin-top: 27px;
+
     text-align: center;
+
     color: #85849a;
     font-size: 13px;
 }
 
 .auth-switch a {
     margin-left: 4px;
+
     color: #6956df;
     font-weight: 700;
     text-decoration: none;
@@ -944,8 +1005,11 @@ body {
 .auth-security {
     margin-top: 35px;
     padding-top: 22px;
+
     border-top: 1px solid #f0eff5;
+
     text-align: center;
+
     color: #85849a;
     font-size: 12px;
 }
@@ -955,7 +1019,9 @@ body {
     color: #6956df;
 }
 
-/* RESPONSIVE */
+/* ==========================================
+   RESPONSIVE - LOGIN & SIGNUP
+   ========================================== */
 
 @media (max-width: 850px) {
     .auth-container {
@@ -1003,32 +1069,14 @@ body {
     .auth-content {
         height: auto;
         min-height: 430px;
-        padding: 40px 35px;
+        padding: 35px 22px;
     }
 
     .brand-content h2 {
         font-size: 26px;
     }
 
-    .auth-content {
-        padding: 35px 22px;
-    }
-
     .auth-heading h2 {
         font-size: 26px;
-    }
-}
-@media (min-width: 651px) {
-    #form-tache {
-        display: flex;
-        width: 100%;
-        align-items: stretch;
-    }
-
-    #texte-tache {
-        flex: 1 1 auto;
-        width: 0;
-        min-width: 0;
-        box-sizing: border-box;
     }
 }
