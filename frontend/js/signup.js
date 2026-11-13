@@ -46,7 +46,7 @@ form.addEventListener("submit", async (event) => {
 
         // Rediriger vers la page de connexion
         setTimeout(() => {
-            window.location.href = "login.html";
+            window.location.href = "login.ht"ml;
         }, 1500);
 
     } catch (erreur) {

@@ -7,9 +7,15 @@ import cors from "cors";
 
 const app = express();
 
+const originesAutorisees = [
+    "https://taskflow-frontend-bay-theta.vercel.app",
+    "http://localhost:5173",
+];
+
 app.use(
     cors({
-        origin: process.env.FRONTEND_URL || "http://127.0.0.1:5500",
+        origin: originesAutorisees,
+        credentials: true,
     }),
 );
 
@@ -27,12 +33,12 @@ export function gestionnaireErreurs(erreur, req, res, next) {
 
     if (erreur.code === "23505") {
         return res.status(409).json({
-            message: "Une tâche avec ce texte existe déjà."
+            message: "Une tâche avec ce texte existe déjà.",
         });
     }
 
     res.status(statut).json({
-        message: erreur.message || "Erreur interne du serveur."
+        message: erreur.message || "Erreur interne du serveur.",
     });
 }
 
